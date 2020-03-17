@@ -1,0 +1,81 @@
+<html>
+
+<body>
+    <label for="date">Date: </label><input type="date" id="date" name="setTodaysDate">
+    <script type="text/javascript">
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);
+
+        var message = "Hallo ik ben een boodschap!";
+        console.log(message); // Je kan ook warn en error en info gebruiken
+
+        var persoon = {}; // Dit is een object
+        persoon.naam = "Robin";
+        persoon.achternaam = "de Potter";
+        persoon.geboorteDatum = "27/09/2001"; // Dit is een string in een object
+        persoon["City"] = "Beveren"; // Dit is geen verschil dus ook een propertie
+        console.log(persoon);
+
+        var array = ["A", "B", "C"];
+        array.naam = "naam"; // Propertie in array en is enkel te zien in table en in for in.
+        array.push("a");
+        array[4] = 'f';
+        array[10] = 't'; // tussen 4 en 10 undefined
+        for (var i = 0; i < array.length; i++) { // For of | for in (opgepast met andere props) | .foreach | console.table is ook mogelijk 
+            console.log(array[i]);
+        };
+        for (var j of array) {
+            console.log(j);
+        };
+        for (var k in array) {
+            console.log(array[k]);
+        };
+        console.table(array);
+        console.log("" + persoon);
+
+        var favonummers = ["godzilla", "bop", "the box", "falling", "My name is", "I wish"];
+        persoon.favonummers = favonummers;
+        persoon.music = [{
+                title: "Narcotic",
+                year: 2019,
+                artist: [
+                    "artist1",
+                    "artist2", {
+                        firstname: "robin",
+                        lastname: "de Potter"
+                    }
+                ]
+            },
+            "godzilla",
+            "bop",
+            "the box",
+            "falling",
+            "My name is",
+            "I wish",
+            "Roxanne"
+        ]; // Dit is niet handig om te gebruiken 
+        // Als je lijsten maakt zorg er dan voor dat je dezelfde structuur hebt (zelfde soort type)
+        console.log(persoon);
+
+        function persoonAfdrukken(persoontje) { // Opletten bij naamgebruik je mag niet een naam gebruiken die al bestaat.
+            return "Naam: " + persoontje.naam + "\nAchternaam: " + persoontje.achternaam + "\nGeboortenaam: " + persoontje.geboorteDatum;
+        };
+        console.log(persoonAfdrukken(persoon));
+
+        var opersoon = {}; // Dit is een object
+        opersoon.firstName = "Robin";
+        opersoon.lastName = "de Potter";
+        opersoon.birthDate = "27/09/2001"; // Dit is een string in een object
+        var oTranslation = {
+            firstName: "Voornaam",
+            lastName: "Achternaam",
+            birthDate: "Geboortedatum"
+        }
+        var aProps = ['firstName', 'lastName', 'birthDate'];
+        for (var sProp of aProps) {
+            console.log(oTranslation[sProp] + ": " + opersoon[sProp]);
+        };
+    </script>
+</body>
+
+</html>

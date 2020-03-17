@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        <h1>Robin de Potter</h1>
+        <h2>Voer getallen in</h2>
+        <label for="getal1">Getal1: </label>
+        <input type="number" id="getal1" placeholder="Voer u 1ste getal in"><br><br>
+        <label for="getal2">Getal2: </label>
+        <input type="number" id="getal2" placeholder="Voer u 2de getal in"><br>
+        <h3>Bewerkingen</h3>
+        <button class="btn btn-dark" onclick="plus()">plus(+)</button>
+        <button class="btn btn-dark" onclick="min()">min(-)</button><br>
+        <button class="btn btn-dark" onclick="maal()">maal(*)</button>
+        <button class="btn btn-dark" onclick="gedeeldDoor()">delen(/)</button><br><br>
+        <h2>Uitkomst</h2>
+        <div class="alert alert-dark">
+            <p id="resultaat"></p>
+        </div>
+        <script>
+            function plus(){
+                var getal1 = parseInt(document.getElementById("getal1").value);
+                var getal2 = parseInt(document.getElementById("getal2").value);
+                document.getElementById("resultaat").innerHTML = getal1 + getal2;
+            }
+            function min(){
+                var getal1 = parseInt(document.getElementById("getal1").value);
+                var getal2 = parseInt(document.getElementById("getal2").value);
+                document.getElementById("resultaat").innerHTML = getal1 - getal2;
+
+            }
+            function maal(){
+                var getal1 = parseInt(document.getElementById("getal1").value);
+                var getal2 = parseInt(document.getElementById("getal2").value);
+                document.getElementById("resultaat").innerHTML = getal1 * getal2;
+
+            }
+            function gedeeldDoor(){
+                var getal1 = parseInt(document.getElementById("getal1").value);
+                var getal2 = parseInt(document.getElementById("getal2").value);
+                document.getElementById("resultaat").innerHTML = getal1 / getal2;
+
+            }
+        </script>
+    </body>
+</html>

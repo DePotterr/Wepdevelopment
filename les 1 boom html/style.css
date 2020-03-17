@@ -1,0 +1,38 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+body {
+    background-color: rgb(45, 231, 92);
+}
+
+h1 {
+    background-color: rgb(7, 68, 23);
+    color: rgb(45, 231, 92);
+    /* padding: 50px;
+    padding-left: 150px; */
+    padding: 50px 50px 50px 150px;
+    margin: 50px;
+}
+
+img {
+    max-width: 250px;
+}
+
+ul {
+    list-style-type: square;
+    /*list-style-image: url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Picea_glauca_tree.jpg);*/
+}
