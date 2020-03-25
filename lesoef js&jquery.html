@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <title>Rekenmachine</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Robin de Potter</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Comming soon</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="card">
+        <h2>Voer getallen in</h2>
+        <div class="card-body">
+            <div class="input-group mb-3">
+                <input id="getal1" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Voer u 1ste getal in">
+                <input type="number" id="getal2" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Voer u 2de getal in">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Bewerkingen</h3>
+        <div class="card-body">
+            <div class="btn-group">
+                <button id="btn1" class="btn btn-dark">plus(+)</button>
+                <button id="btn2" class="btn btn-dark">min(-)</button>
+                <button id="btn3" class="btn btn-dark">maal(*)</button>
+                <button id="btn4" class="btn btn-dark">delen(/)</button>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Uitkomst</h3>
+            <div class="card-body">
+                <div class="alert alert-dark">
+                    <p id="resultaat"></p>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#btn1').click(function() {
+                    var getal1 = parseInt($("#getal1").val());
+                    var getal2 = parseInt($("#getal2").val());
+                    var uitkomst = getal1 + getal2;
+                    $("#resultaat").text(uitkomst);
+                })
+            })
+            $(document).ready(function() {
+                $('#btn2').click(function() {
+                    var getal1 = parseInt($("#getal1").val());
+                    var getal2 = parseInt($("#getal2").val());
+                    var uitkomst = getal1 - getal2;
+                    $("#resultaat").text(uitkomst);
+                })
+            })
+            $(document).ready(function() {
+                $('#btn3').click(function() {
+                    var getal1 = parseInt($("#getal1").val());
+                    var getal2 = parseInt($("#getal2").val());
+                    var uitkomst = getal1 * getal2;
+                    $("#resultaat").text(uitkomst);
+                })
+            })
+            $(document).ready(function() {
+                $('#btn4').click(function() {
+                    var getal1 = parseInt($("#getal1").val());
+                    var getal2 = parseInt($("#getal2").val());
+                    var uitkomst = getal1 / getal2;
+                    $("#resultaat").text(uitkomst);
+                })
+            })
+        </script>
+        <script src="https://getbootstrap.com/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+</body>
+
+</html>
