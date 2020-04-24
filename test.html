@@ -1,0 +1,44 @@
+<html>
+
+<body>
+
+    <head>
+
+    </head>
+    <main>
+        <p id="getal">0</p>
+        <button name="click" onclick="optellen()">Ckick me!</button>
+        <div>
+            <p>Buy powerups!</p>
+            <div>
+                <p id="double tekst">double your clicks (costs 100 clicks)</p>
+                <button name="double" onclick="PurchaseDouble()">Buy</button>
+            </div>
+        </div>
+    </main>
+    <script>
+        var clicks = 0;
+        var addClicks = 1;
+        var priceDoubleClick = 100;
+
+        function optellen() {
+            clicks = clicks + addClicks;
+            document.getElementById("getal").innerHTML = clicks;
+        }
+
+        function PurchaseDouble() {
+            if (clicks >= priceDoubleClick && clicks - document.getElementById("getal").innerHTML >= 0) {
+                clicks = clicks - priceDoubleClick;
+                addClicks = addClicks * 2;
+                priceDoubleClick = priceDoubleClick * 2.5;
+                document.getElementById("double tekst").innerHTML = "double your clicks (costs " + priceDoubleClick + " clicks)";
+                document.getElementById("getal").innerHTML = clicks;
+
+            } else {
+                alert("You don't have enough clicks.");
+            }
+        }
+    </script>
+</body>
+
+</html>

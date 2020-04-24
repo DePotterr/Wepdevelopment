@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Star Wars API</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+		  <a class="navbar-brand" href="#">SWAPI</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item active">
+				<a class="nav-link" href="./personage.html">Personages <span class="sr-only">(current)</span></a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="./planet.html">Planets</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="./film.html">Films</a>
+			  </li>
+			</ul>
+		  </div>
+		</nav>
+
+		<main role="main" class="container">
+		  <div class="jumbotron">
+			<h1>Personages</h1>
+			<p class="lead">This page will show you the information on Personages.</p>
+		  </div>
+		</main>
+		
+		<div class="container">
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="personageid">Personage:&nbsp;</label>
+					<input type="number" min="1" class="form-control" id="personageid" placeholder="Personage id">
+				</div>
+				<button type="button" class="btn btn-primary" onclick="getPersonage()">Get Personage Information</button>
+			</form>
+		</div>
+		
+		<div class="container">
+			<div class="row" id="personage"></div>
+		</div>
+		
+		<footer class="pt-4 my-md-5 pt-md-5 border-top">
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center" id="pages"></ul>
+			</nav>
+		</footer>
+		
+		
+		<!-- Eerst jQuery inladen dan pas eigen script -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- Laad scripts in volgens de nodige dependencies -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+		<!-- Eindigen doe je best met je eigen scripts -->
+		<script>
+			var sBaseUrl = "https://swapi.co/api/people/";
+			function getPersonage() {
+				var sUrl = "",
+					sInputParam = $("#personageid").val();
+        		if (sInputParam !== "" && !!parseInt(sInputParam)) { // Create the url if the provided input is a number
+                    sUrl = sBaseUrl + sInputParam + "/";
+                }
+				if (sUrl !== "") { // Execute the API call if an url is available
+					$.get(sUrl)
+						.done(function(oData) {
+                            $("#personage").html('');
+                            $("#personage").append(addPersonage(oData));
+						})
+						.fail(function(oError) {
+							console.error(oError);
+						});
+				}
+			}
+			function addPersonage(oPersonage) { // Receives an object and will return a string with html
+				var sHtml = '';
+					sHtml += '<div class="col-md-12">' + // Provide a column width, in this case the full width
+                    /* Provide a card */
+                    '<div class="card">' +
+					/* Add name */
+					'<div class="card-body">' +
+					'<h5 class="card-title">' + oPersonage.name + '</h5>' +
+					/* Add birth_year, gender and homeworld */
+					'<div class="row">' +
+					'<div class="col-md-4">' +
+                    getIcon("calendar") + '&nbsp;' + oPersonage.birth_year + '' + // &nbsp; = 1 space
+					'</div>' +
+					'<div class="col-md-4">' +
+                    getIcon("gender") + '&nbsp;' + oPersonage.gender + '' +
+					'</div>' +
+                    '<div class="col-md-4">' +
+                    getIcon("home") + '&nbsp;' + oPersonage.homeworld + '' +
+					'</div>' +
+					'</div>';
+					/* Add films */
+                    if (oPersonage.films.length > 0) {
+                        sHtml += '<ul class="list-group">' +
+                        '<li class="list-group-item active">Films</li>';
+                        for (var nFilms = 0; nFilms < oPersonage.films.length; nFilms++) {
+							sHtml += '<li class="list-group-item">' + oPersonage.films[nFilms] + '</li>';
+                        }
+                        sHtml += '</ul>';
+                    }
+                    sHtml += '</div>' +
+					'</div>' +
+					'</div>';
+				return sHtml;
+			}
+            function getIcon(sParam) { // Function that returns a small icon based on the parameter
+                switch(sParam) {
+                    case "home":
+                        return '<svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z" clip-rule="evenodd"/></svg>';
+                        break;
+                    case "calendar":
+                        return '<svg class="bi bi-calendar-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/><path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/></svg>';
+                        break;
+                    case "gender":
+                        return '<svg class="bi bi-heart-half" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 1.314C3.562-3.248-7.534 4.735 8 15V1.314z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 01.176-.17C12.72-3.042 23.333 4.867 8 15z" clip-rule="evenodd"/></svg>';
+                        break;
+                }
+            }
+		</script>		
+	</body>
+</html>
