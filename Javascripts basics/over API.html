@@ -1,0 +1,39 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <!--Jquerry library-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        //Opvragen api
+        let url = "Put here your url";
+        $.get(url, function(data, status) {
+            if (status == "success" && data.rows.length != 0) {
+
+            } else {
+
+            }
+        });
+
+        //Maak eerste letter uppercase
+        function capFirstChar(sText) {
+            return sText[0].toUpperCase() + sText.slice(1);
+        }
+
+        //Plaatst een comma tussen 2 woorden en haalt laatste comma eruit
+        //a = array
+        function getWoorden(array) {
+            let sWoorden = "";
+            array.forEach(swoord => {
+                array += swoord + ", ";
+            });
+            return sWoorden.slice(0, -2);
+        }
+    </script>
+
+</body>
+
+</html>
