@@ -17,7 +17,12 @@
 
             }
         });
-
+        //Alternatief opvragen api
+        $.getJSON('put your url here')
+            .done(function(oData) {})
+            .fail(function(oError) {
+                console.error(oError);
+            });
         //Maak eerste letter uppercase
         function capFirstChar(sText) {
             return sText[0].toUpperCase() + sText.slice(1);
@@ -32,6 +37,8 @@
             });
             return sWoorden.slice(0, -2);
         }
+        //Canvas use chart
+        new Chart($('#canvasid'), oData);
     </script>
 
 </body>
