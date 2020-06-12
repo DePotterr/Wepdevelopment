@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Afleveringen</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon.ico">
+    <meta name="msapplication-config" content="https://getbootstrap.com/docs/4.5/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <style>
+        .marginTop {
+            margin-top: 50px;
+        }
+        
+        .marginCard {
+            margin: 10px;
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.5/examples/carousel/carousel.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/GameOfTrones/Afleveringen.html">Afleveringen <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/GameOfTrones/Personages.html">Personages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/GameOfTrones/PersonagesLocatie.html">PersonagesLocatie</a>
+                    </li>
+                </ul>
+                <div class="form-inline mt-2 mt-md-0">
+                    <input id="input" class="form-control mr-sm-2" type="text" placeholder="Naam of id aflevering" aria-label="Search">
+                    <button onclick="getInput()" class="btn btn-outline-success my-2 my-sm-0" type="submit">Zoek</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        <div class="card">
+            <div class="card-header">
+                Enkele namen van afleveringen
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>The Kingsroad, You Win or You Die, The North Remembers</p>
+                </blockquote>
+            </div>
+        </div>
+        <!-- Start afleveringen-->
+        <div class="container marketing marginTop">
+            <div id="afleveringen" class="row">
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </main>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')
+    </script>
+    <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+    <script>
+        let sBaseUrlById = "https://api.got.show/api/map/episodes/byId/",
+            sBaseUrlByName = "https://api.got.show/api/map/episodes/",
+            oCharRegex = RegExp("^[A-z]*$"),
+            oIntRegex = RegExp("^[0-9]*$");
+        var idText = 0;
+
+        function getDataById(sInput) {
+            $.getJSON(sBaseUrlById + sInput).done(function(oData) {
+                console.log(oData);
+                fillData(oData);
+            })
+        }
+
+        function getDataByName(sInput) {
+            $.getJSON(sBaseUrlByName + sInput).done(function(oData) {
+                var sId;
+                console.log(oData);
+                getNextEpisode(oData.data.successor);
+                GetPreviousEpisode(oData.data.predecessor);
+                fillData(oData);
+            })
+        }
+
+        function getData(sInput) {
+            if (checkInputIsNaam(sInput)) {
+                getDataByName(sInput);
+            } else {
+                getDataById(sInput);
+            }
+        }
+
+        function getNextEpisode(sInput) {
+            $.getJSON(sBaseUrlByName + sInput).done(function(oData) {
+                var sId;
+                console.log(oData);
+                fillData(oData);
+            })
+        }
+
+        function GetPreviousEpisode(sInput) {
+            $.getJSON(sBaseUrlByName + sInput).done(function(oData) {
+                var sId;
+                console.log(oData);
+                fillData(oData);
+            })
+        }
+
+        function getInput() {
+            var sInput = $("#input").val();
+            if (sInput === undefined || sInput === null || sInput.length <= 0) {
+                alert("Geef een id of naam van de aflevering.")
+            } else {
+                $("#afleveringen").html('');
+                getData(sInput);
+            }
+        }
+
+        function checkInputIsNaam(sInput) {
+            if (sInput[0] == '5' && sInput[1] == 'c') {
+                return false
+            } else {
+                return true;
+            }
+        }
+
+        function fillData(oData) {
+            idText++;
+            var naam = oData.data.name;
+            var regisseur = oData.data.director;
+            var speeldatum = oData.data.airDate;
+            var seizoen = oData.data.season;
+            var aflevering = oData.data.nr;
+            var personages = oData.data.characters;
+            var vorigeAfleveringsnaam = oData.data.predecessor;
+            var volgendeAfleveringsnaam = oData.data.successor
+            if (vorigeAfleveringsnaam == undefined) {
+                vorigeAfleveringsnaam = "Geen vorige Aflevering.";
+            }
+            if (volgendeAfleveringsnaam == undefined) {
+                volgendeAfleveringsnaam = "Geen vorige Aflevering.";
+            }
+            var sPersonages = "";
+            for (i = 0; i < personages.length; i++) {
+                sPersonages += '<li><a href="/GameOfTrones/Personages.html?' + personages[i] + '">' + personages[i] + '</a></li>';
+            }
+            $("#afleveringen").append('<div class="card marginCard" style="width: 18rem;"><div class="card-body"><h5 class="card-title">' + naam + '</h5><p id="text' + idText + '" class="card-text"></p></div></div>');
+            $("#text" + idText).append('Regisseur: ' + regisseur + "<br>Speeldatum: " + speeldatum + "<br>Seizoen: " + seizoen + "<br>Aflevering: " + aflevering + "<br>Volgende aflevering: " + volgendeAfleveringsnaam + "<br>Vorige aflevering: " + vorigeAfleveringsnaam + '<ul id="personages' + idText + '"></ul>');
+            $("#personages" + idText).append(sPersonages);
+
+        }
+    </script>
+</body>
+
+</html>

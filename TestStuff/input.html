@@ -1,0 +1,17 @@
+<html>
+
+<body>
+    <input id="1" type="text" name="input" placeholder="Type een waarde in">
+    <button onclick="input()">Button</button>
+    <div id="2"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function input() {
+            var input = document.getElementById("1").value;
+            console.log(input);
+            $("#2").append('<p>' + input + '</p>');
+        }
+    </script>
+</body>
+
+</html>
