@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Cat images</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 4.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link one</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link two</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <h1>Cat image</h1>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-info" onclick="getCatImage()">Show me a new Cat Image</button>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <div class="spinner-border mx-auto d-block invisible" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <img src="" class="img-fluid rounded mx-auto d-block invisible">
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var sUrl = "https://api.thecatapi.com/v1/images/search";
+
+        function getCatImage() {
+            $("img").removeClass('visible');
+            $("img").addClass('invisible');
+            $(".spinner-border").removeClass('invisible');
+            $(".spinner-border").addClass('visible');
+            $.get(sUrl)
+                .done(function(oData) {
+                    $("img").attr('src', oData[0].url);
+                    setTimeout(function() {
+                        $(".spinner-border").removeClass('visible');
+                        $(".spinner-border").addClass('invisible');
+                        $("img").removeClass('invisible');
+                        $("img").addClass('visible');
+                    }, 1000);
+                })
+                .fail(function(oError) {
+                    console.error(oError);
+                });
+        }
+    </script>
+</body>
+
+</html>

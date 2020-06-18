@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Rick and Morty | Karakters</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- Custom styles for this template -->
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        
+        body {
+            padding-top: 4.5rem;
+        }
+    </style>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        
+        body {
+            padding-top: 4.5rem;
+        }
+    </style>
+    <!--Sticky footer css-->
+    <style>
+        /*Sticky footer styles*/
+        
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        
+        body {
+            margin-bottom: 4.5rem;
+            /* Margin bottom by footer height */
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            /* Set the fixed height of the footer here */
+            line-height: 60px;
+            /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+    </style>
+    <style>
+        .marginTop {
+            margin-top: 50px;
+        }
+        
+        .marginCard {
+            margin: 10px;
+        }
+        
+        .card {
+            margin: 0 auto;
+            /* Added */
+            float: none;
+            /* Added */
+            margin-bottom: 10px;
+            /* Added */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="./index.html">Characters</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="./index.html">Characters <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./page2.html">Episodes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./page3.html">Locations</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+        <!--Content-->
+        <div class="jumbotron">
+            <h1>Rick and Morty</h1>
+            <p class="lead">Characters</p>
+        </div>
+        <!--Cards-->
+        <div id="cards" class="row">
+
+        </div>
+    </main>
+    <!--Footer-->
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Robin de Potter 1TIC</span>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let sBaseUrl = "https://rickandmortyapi.com/api/character/";
+
+        window.onload = function() {
+            $.getJSON(sBaseUrl)
+                .done(function(oData) {
+                    console.log(oData);
+                    fillGrid(oData);
+                })
+                .fail(function(oError) {
+                    console.error(oError);
+                });
+        };
+
+        function fillGrid(oData) {
+            //var divCharacterId = 0;
+            var oCharacters = oData.results;
+            var idText = 0;
+            for (i = 0; i < 20; i++) {
+                var naam = oCharacters[i].name;
+                $("#cards").append('<div class="card marginCard text-white bg-dark" style="width: 18rem;"><img src="' + oCharacters[i].image + '" class="card-img-top" alt="Kon foto niet laden."><div class="card-body"><h5 class="card-title">' + naam + '</h5><p id="text' + idText + '" class="card-text"></p></div></div>');
+                $("#text" + idText).append('Gender: ' + oCharacters[i].gender + '<br>Levenstatus: ' + oCharacters[i].status + '<br>Soort: ' + oCharacters[i].species + '<br>Oorsprong: ' + oCharacters[i].origin.name + '<br>Huidige locatie: ' + oCharacters[i].location.name + '<br><br><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample' + idText + '" role="button" aria-expanded="false" aria-controls="collapseExample">Open</a><div class="collapse" id="collapseExample' + idText + '"><ul id="episodes' + idText + '"></ul></div>');
+                for (j = 0; j < oCharacters[i].episode.length; j++) {
+                    $("#episodes" + idText).append('<li><a href="./page2.html?' + (j + 1) + '">' + oCharacters[i].episode[j] + '</a></li>');
+                }
+                idText++
+
+                //$("#characters").append('<div id="card' + divCharacterId + '" class="card" style="width: 18rem;"><div id="character' + divCharacterId + '" class="card-body"></div></div>');
+                ////divCharacterId++;
+            }
+        }
+    </script>
+</body>
+
+</html>
